@@ -17,20 +17,23 @@ type BikeStore struct {
 var stores []BikeStore
 
 func main() {
-    GetPlaces()
+    // calling only once due to quota issues
+    go GetPlaces()
     router := mux.NewRouter()
     router.HandleFunc("/bikestores", GetBikeStores).Methods("GET")
     router.HandleFunc("/bikestore/{id}", GetBikeStore).Methods("GET")
     log.Fatal(http.ListenAndServe(":8000", router))
 }
 
-
+// Handler function for bikestores api call
 func GetBikeStores(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
   json.NewEncoder(w).Encode(stores)
 }
 
+// Handler function for bikestore api call
+// requires id
 func GetBikeStore(w http.ResponseWriter, r *http.Request) {
   params := mux.Vars(r)
   for _, item := range stores {

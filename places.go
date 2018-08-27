@@ -5,7 +5,7 @@ import (
     "fmt"
     "io/ioutil"
     "net/http"
-    _"time"
+    "time"
 )
 
 const key = "AIzaSyBT_pgfx2wewAxXAf49VxqlQ2XOTRKZxS0"
@@ -15,7 +15,6 @@ const url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?locati
 
 type Response struct {
 		Results          []PlacesSearchResult `json:"results,omitempty"`
-		HTMLAttributions []string             `json:"html_attributions,omitempty"`
 		NextPageToken    string               `json:"next_page_token,omitempty"`
 }
 
@@ -25,8 +24,10 @@ type PlacesSearchResult struct {
 	Vicinity  string   `json:"vicinity"`
 }
 
-
+// function for querying GoogleMaps api.
+// is cached due to quota issues
 func GetPlaces() {
+  stores = nil
   pageToken := ""
   for {
     queryUrl := fmt.Sprintf(url, location, key, pageToken)
@@ -49,7 +50,7 @@ func GetPlaces() {
           pageToken = "pagetoken=" + respData.NextPageToken
 
           //some sleeping since Google dont like me
-          //time.Sleep(60 * time.Second)
+          time.Sleep(60 * time.Second)
     }
   }
 }

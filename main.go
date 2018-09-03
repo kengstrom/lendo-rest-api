@@ -2,27 +2,24 @@ package main
 
 import (
     "encoding/json"
-    "log"
+  //  "log"
     "net/http"
     "github.com/gorilla/mux"
 )
-
-type BikeStore struct {
-  ID    string    `json:"id,omitempty"`
-  Name  string    `json:"name,omitempty"`
-  Address string   `json:"address,omitempty"`
-}
 
 
 var stores []BikeStore
 
 func main() {
     // calling only once due to quota issues
-    go GetPlaces()
+    /*go GetPlaces()
     router := mux.NewRouter()
     router.HandleFunc("/bikestores", GetBikeStores).Methods("GET")
     router.HandleFunc("/bikestore/{id}", GetBikeStore).Methods("GET")
     log.Fatal(http.ListenAndServe(":8000", router))
+    */
+    api := API{}
+    api.Run()
 }
 
 // Handler function for bikestores api call

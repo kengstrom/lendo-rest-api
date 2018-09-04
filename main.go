@@ -1,10 +1,10 @@
 package main
 
 import (
-    "encoding/json"
+    //"encoding/json"
   //  "log"
-    "net/http"
-    "github.com/gorilla/mux"
+//    "net/http"
+ //   "github.com/gorilla/mux"
 )
 
 
@@ -21,7 +21,7 @@ func main() {
     api := API{}
     api.Run()
 }
-
+/*
 // Handler function for bikestores api call
 func GetBikeStores(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "application/json")
@@ -45,3 +45,4 @@ func GetBikeStore(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusBadRequest)
   json.NewEncoder(w).Encode(map[string]string{"error": "Invalid place id"})
 }
+*/

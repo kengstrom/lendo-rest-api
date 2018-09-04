@@ -24,10 +24,11 @@ type PlacesSearchResult struct {
 	Vicinity  string   `json:"vicinity"`
 }
 
+
+
 // function for querying GoogleMaps api.
 // is cached due to quota issues
-func GetPlaces() {
-  stores = nil
+func (dp* DataProvider) GetPlaces() {
   pageToken := ""
   for {
     queryUrl := fmt.Sprintf(url, location, key, pageToken)
@@ -40,7 +41,7 @@ func GetPlaces() {
           json.Unmarshal(data, &respData)
 
           for _, searchResult := range respData.Results {
-            stores = append(stores, BikeStore{ID:searchResult.PlaceID, Name: searchResult.Name, Address:searchResult.Vicinity })
+            dp.Stores = append(dp.Stores, BikeStore{ID:searchResult.PlaceID, Name: searchResult.Name, Address:searchResult.Vicinity })
           }
           if respData.NextPageToken == "" {
             fmt.Println("No more data")
@@ -53,4 +54,9 @@ func GetPlaces() {
           time.Sleep(60 * time.Second)
     }
   }
+}
+
+
+type DataProvider struct {
+  Stores []BikeStore
 }
